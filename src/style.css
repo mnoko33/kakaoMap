@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#App {
+  display: flex;
+}
+
+.sidebar-wrapper {
+  width: 25vw;
+  height: 100vh;
+  background-color: gainsboro;
+  overflow: scroll;
+}
+
+.placeInfo {
+  margin: 10px;
+  padding: 10px;
+  width: calc(100% - 20px);
+  height: 100px;
+  background-color: #ffffff;
+  
+}
+
+#kakaoMap {
+  width: 75vw;
+  height: 100vh;
+}
+
+.err-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  font-size: 30px;
+  font-weight: bolder;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  z-index: 9999;
+}
+
+.err-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
