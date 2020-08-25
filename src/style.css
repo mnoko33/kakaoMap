@@ -8,6 +8,35 @@
   display: flex;
 }
 
+.selector-wrapper {
+  z-index: 3333;
+  position: fixed;
+  top: 0;
+  left: 26vw;
+  background-color: transparent;
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+}
+
+.category {
+  background-color: white;
+  padding: 5px 15px;
+  margin: 5px 10px;
+  height: 40px;
+  line-height: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 3px gray;
+}
+
+.category:hover {
+  cursor: pointer;
+}
+
+.category.clicked {
+  background-color: #FFF100;
+}
+
 .sidebar-wrapper {
   width: 25vw;
   height: 100vh;
@@ -20,16 +49,23 @@
   width: calc(100% - 20px);
   height: 100px;
   background-color: #ffffff;
+  border-radius: 5px;
 }
 
-.placeInfo.clicked > div {
-  background-color: yellow;
+.placeInfo.clicked {
+  background-color: #FFF100;
+}
+
+.placeInfo.vacant {
+  text-align: center;
+  line-height: 100px;
 }
 
 .placeInfo > div {
   width: 100%;
   height: calc(100% / 3);
   padding: 5px 15px;
+  background-color: transparent;
 }
 
 .placeInfo > div:hover {
