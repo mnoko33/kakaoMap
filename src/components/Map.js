@@ -1,13 +1,13 @@
 class Map {
-  constructor({ $app, options, updateAppPlaceList, updateAppClickedPlace }) {
+  constructor({ $app, options, code, updateAppPlaceList, updateAppClickedPlace }) {
     
     this.$app = $app;
     this.options = options;
+    this.code = code;
     this.placeList = [];
     this.updateAppPlaceList = updateAppPlaceList;
     this.updateAppClickedPlace = updateAppClickedPlace;
     this.map = null;
-    this.isNew = true;
 
     this.mapWrapper = document.createElement("div");
     this.mapWrapper.id = "kakaoMap";
@@ -43,23 +43,23 @@ class Map {
       const latlng = this.map.getCenter();
       this.mapOption.center = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
       this.setMap();
-      this.searchPlace("CS2");
+      this.searchPlace(this.code);
     }
 
     const handleZoomChanged = () => {
       const level = this.map.getLevel();
       this.mapOption.level = level;
       this.setMap();
-      this.searchPlace("CS2");
+      this.searchPlace(this.code);
     }
 
     kakao.maps.event.addListener(this.map, 'center_changed', handleMapDrag)
     kakao.maps.event.addListener(this.map, 'zoom_changed', handleZoomChanged)
-    this.searchPlace("CS2")
+    this.searchPlace(this.code)
   }
 
   setMap() {
-    const [center, level] = Object.values(this.mapOption);
+    const { center, level } = this.mapOption;
     this.map.setCenter(center);
     this.map.setLevel(level);
   }
@@ -94,9 +94,7 @@ class Map {
     });
     this.markerList.push({ id: place.id, marker })
 
-    // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', () => {
-      // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
       this.updateAppClickedPlace({place, target: 'sidebar'})
       this.infowindow.setContent(this.getInfowindowContent(place));
       this.infowindow.open(this.map, marker);
@@ -118,5 +116,10 @@ class Map {
         ${place.place_name}
       </div>
     `
+  }
+
+  changeCategory(code) {
+    this.code = code;
+    this.render();
   }
 }
