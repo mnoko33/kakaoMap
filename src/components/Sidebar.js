@@ -27,16 +27,18 @@ class Sidebar {
 
   render() {
     this.sidebar.innerHTML = `
-      ${this.state.placeList
-        .map(place => 
-          `<div class="${this.clicked === place.id ? 'placeInfo clicked' : 'placeInfo'}" id="${place.id}">
-            <div>이름: ${place.place_name}</div>
-            <div>연락처: ${place.phone ? place.phone : '-'}</div>
-            <div>주소: ${place.address_name}</div>
-          </div>`
-          )
-          .join('')
-        }
+      ${this.state.placeList.length 
+          ? this.state.placeList
+              .map(place => 
+                `<div class="${this.clicked === place.id ? 'placeInfo clicked' : 'placeInfo'}" id="${place.id}">
+                  <div>이름: ${place.place_name}</div>
+                  <div>연락처: ${place.phone ? place.phone : '-'}</div>
+                  <div>주소: ${place.address_name}</div>
+                </div>`
+                )
+              .join('')
+          : '<div class="placeInfo vacant">아무것도 없네요...</div>'
+          }
     `
   }
 
@@ -48,8 +50,9 @@ class Sidebar {
     this.render();
   }
   setPlaceClicked(place) {
-    if (this.clicked) {
-      document.getElementById(this.clicked).classList.remove('clicked');
+    const prev = document.getElementById(this.clicked);
+    if (this.clicked && prev) {
+      prev.classList.remove('clicked');
     }
     this.clicked = place.id;
     document.getElementById(this.clicked).classList.add('clicked');
