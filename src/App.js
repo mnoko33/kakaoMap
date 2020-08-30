@@ -15,36 +15,27 @@ class App {
         // observe placeList
         if (prop === 'placeList') {
           this.sidebar.updateSidebar(value);
-        }
         // observe err
-        if (prop === 'err') {
+        } else if (prop === 'err') {
           if (value) {
             this.error.showError();
           } else {
             this.error.hideError();
           }
-        }
         // observer for marker
-        if (prop === 'clickedPlace') {
+        } else if (prop === 'clickedPlace') {
           const {place, target} = value
           if (target === 'map') {
             this.map.showMarker(place);
           } else if (target === 'sidebar') {
             this.sidebar.setPlaceClicked(place);
           }
-        }
-
-        if (prop === 'category') {
+        } else if (prop === 'category') {
           this.map.changeCategory(value.code);
-          history.pushState(null, null, `${location.href.split('/')[0]}/${value.en}`)
         }
-
         return Reflect.set(target, prop, value);
       }
     })
-
-    // 주소값 설정
-    this.setAddress();
 
     this.selector = new Selector({
       $app,
@@ -80,9 +71,5 @@ class App {
       $app,
       visible: this.state.err,
     })
-  }
-
-  setAddress() {
-    history.pushState(null, null, `${location.href.split('/')[0]}/${this.state.category.en}`)
   }
 }
